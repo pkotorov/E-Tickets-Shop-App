@@ -1,0 +1,65 @@
+﻿@page "/users"
+
+@inject IUsersService UsersService;
+
+@attribute [Authorize(Roles = "Admin")]
+
+@if (this.applicationUsers != null)
+{
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <p>
+                <h4>List of all users</h4>
+            </p>
+
+            <table class="table">
+                <thead>
+                    <tr class="text-center">
+                        <th>Full name</th>
+                        <th>Username</th>
+                        <th>Email Address</th>
+                        <th>EGN</th>
+                        <th>Personal ID number</th>
+                        <th>Phone number</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in this.applicationUsers)
+                    {
+                        <tr>
+                            <td class="align-middle">
+                                @user.FullName
+                            </td>
+                            <td class="align-middle">
+                                @user.UserName
+                            </td>
+                            <td class="align-middle">
+                                @user.Email
+                            </td>
+                            <td class="align-middle">
+                                @user.PIN
+                            </td>
+                            <td class="align-middle">
+                                @user.PersonalIdNumber
+                            </td>
+                            <td class="align-middle">
+                                @user.PhoneNumber
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+}
+
+
+@code {
+    private IEnumerable<ApplicationUser> applicationUsers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.applicationUsers = await this.UsersService.GetAllUsersAsync();
+    }
+}

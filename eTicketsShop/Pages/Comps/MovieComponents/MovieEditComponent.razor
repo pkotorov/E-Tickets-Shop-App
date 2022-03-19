@@ -1,0 +1,105 @@
+﻿@page "/movies/edit/{MovieId:int}"
+
+@inject IMoviesService moviesService
+@inject NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
+
+@attribute [Authorize(Roles = "Admin")]
+
+@if (this.movieValidationModel != null)
+{
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <p>
+                <h4>Edit movie</h4>
+            </p>
+
+            <div class="row">
+                <div class="col-md-8 offset-2">
+                    <EditForm Model="@this.movieValidationModel" OnValidSubmit="@SubmitHandler">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Movie name:</label>
+                                    <InputText class="form-control" @bind-Value="movieValidationModel.Name"></InputText>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Start date:</label>
+                                    <InputDate class="form-control" @bind-Value="movieValidationModel.StartDate"></InputDate>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">End date:</label>
+                                    <InputDate class="form-control" @bind-Value="movieValidationModel.EndDate"></InputDate>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Price:</label>
+                                    <InputNumber class="form-control" @bind-Value="movieValidationModel.Price"></InputNumber>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label">Image URL:</label>
+                                    <InputText class="form-control" @bind-Value="movieValidationModel.ImageUrl"></InputText>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Category:</label>
+                                <InputSelect @bind-Value="this.movieValidationModel.MovieCategory" class="form-control">
+                                    @foreach (var value in Enum.GetValues(typeof(MovieCategory)))
+                                    {
+                                    <option>@value</option>
+                                    }
+                            </InputSelect>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Description:</label>
+                                <InputTextArea class="form-control" @bind-Value="movieValidationModel.Description"></InputTextArea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-success float-right">Edit</button>
+                        <NavLink href="/">Show All</NavLink>
+                    </div>
+                </EditForm>
+                <button class="btn btn-danger align-content-center" @onclick="DeleteHandler" style="margin-left: 20px;">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@code {
+    private Movie movieValidationModel;
+
+    [Parameter]
+    public int MovieId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.movieValidationModel = await this.moviesService.GetMovieByIdAsync(this.MovieId);
+    }
+
+    private async Task SubmitHandler()
+    {
+        await this.moviesService.UpdateMovieAsync(movieValidationModel);
+
+        this.navigationManager.NavigateTo("/");
+    }
+
+    private async Task DeleteHandler()
+    {
+        bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Are you sure you want to delete this movie?");
+
+        if (confirmed)
+        {
+            await this.moviesService.DeleteAsync(this.MovieId);
+
+            this.navigationManager.NavigateTo("/");
+        }
+    }
+
+}

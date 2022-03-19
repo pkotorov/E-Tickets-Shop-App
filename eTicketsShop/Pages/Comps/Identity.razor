@@ -1,0 +1,46 @@
+﻿<AuthorizeView Context="_another">
+    <NotAuthorized>
+        <NavLink class="btn btn-outline-success my-2 my-sm-0" href="/login">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+        </NavLink>
+
+        <span style="padding: 5px;"></span>
+
+        <NavLink class="btn btn-outline-primary my-2 my-sm-0" href="/register">
+            <i class="bi bi-person-plus"></i> Register
+        </NavLink>
+    </NotAuthorized>
+    <Authorized>
+        <div class="dropdown">
+            <button class="btn btn-outline-success dropdown-toggle" type="button" id="profile-btn" data-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-badge"></i> Hello @_another.User.Identity?.Name!
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="profile-btn">
+                <li>
+                    <NavLink class="dropdown-item" href="/orders">
+                        <i class="bi bi-list"></i> Orders
+                    </NavLink>
+                </li>
+                <AuthorizeView Roles="Admin">
+                    <li>
+                        <NavLink class="dropdown-item" href="/users">
+                            <i class="bi bi-people"></i> Users
+                        </NavLink>
+                    </li>
+                </AuthorizeView>
+            </ul>
+        </div>
+
+        <span style="padding: 5px;"></span>
+        <form method="post" action="Identity/Account/LogOut">
+            <button class="btn btn-outline-danger my-2 my-sm-0">
+                <i class="bi bi-box-arrow-in-right"></i> Log out
+            </button>
+        </form>
+    </Authorized>
+</AuthorizeView>
+
+
+
+
+

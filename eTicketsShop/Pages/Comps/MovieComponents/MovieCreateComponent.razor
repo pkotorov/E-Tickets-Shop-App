@@ -1,0 +1,80 @@
+﻿@page "/movies/create"
+
+@inject IMoviesService moviesService
+@inject NavigationManager navigationManager
+
+@attribute [Authorize(Roles = "Admin")]
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Create a new movie</h4>
+        </p>
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <EditForm Model="@this.movieCreateValidationModel" OnValidSubmit="@SubmitHandler">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label">Movie name:</label>
+                                <InputText class="form-control" @bind-Value="movieCreateValidationModel.Name"></InputText>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Start date:</label>
+                                <InputDate class="form-control" @bind-Value="movieCreateValidationModel.StartDate"></InputDate>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">End date:</label>
+                                <InputDate class="form-control" @bind-Value="movieCreateValidationModel.EndDate"></InputDate>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Price:</label>
+                                <InputNumber class="form-control" @bind-Value="movieCreateValidationModel.Price"></InputNumber>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Image URL:</label>
+                                <InputText class="form-control" @bind-Value="movieCreateValidationModel.ImageUrl"></InputText>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Category:</label>
+                            <InputSelect @bind-Value="this.movieCreateValidationModel.MovieCategory" class="form-control">
+                                @foreach (var value in Enum.GetValues(typeof(MovieCategory)))
+                                {
+                                    <option>@value</option>
+                                }
+                            </InputSelect>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label">Description:</label>
+                                <InputTextArea class="form-control" @bind-Value="movieCreateValidationModel.Description"></InputTextArea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-success float-right">Create</button>
+                        <NavLink href="/">Show All</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private MovieValidationModel movieCreateValidationModel = new MovieValidationModel();
+
+    private async Task SubmitHandler()
+    {
+        await this.moviesService.AddNewMovieAsync(this.movieCreateValidationModel);
+
+        this.navigationManager.NavigateTo("/");
+    }
+}

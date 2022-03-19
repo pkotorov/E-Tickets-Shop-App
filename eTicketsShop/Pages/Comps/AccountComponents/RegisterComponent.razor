@@ -1,0 +1,100 @@
+﻿@page "/register"
+
+@using eTicketsShop.Data.Static
+
+@inject UserManager<ApplicationUser> UserManager
+@inject NavigationManager NavigationManager
+
+@attribute [AllowAnonymous]
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <p>
+            <h4>Sign up for a new account</h4>
+        </p>
+
+        @if (!String.IsNullOrWhiteSpace(this.error))
+            {
+                <div class="col-md-12 alert alert-danger">
+                    <span><b>Sorry!</b> - @error</span>
+                </div>
+            }
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <EditForm Model="registerValidationModel" OnValidSubmit="RegisterHandler">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="form-group">
+                        <label class="control-label">Full name:</label>
+                        <InputText @bind-Value="registerValidationModel.FullName" class="form-control"></InputText>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Email Address:</label>
+                        <InputText @bind-Value="registerValidationModel.EmailAddress" class="form-control"></InputText>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">EGN:</label>
+                        <InputText @bind-Value="registerValidationModel.PIN" class="form-control"></InputText>
+                    </div>
+                      <div class="form-group">
+                        <label class="control-label">Personal ID Number:</label>
+                        <InputText @bind-Value="registerValidationModel.PersonalIdNumber" class="form-control"></InputText>
+                    </div>
+                      <div class="form-group">
+                        <label class="control-label">Phone number:</label>
+                        <InputText @bind-Value="registerValidationModel.PhoneNumber" class="form-control"></InputText>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Password:</label>
+                        <InputText type="password" @bind-Value="registerValidationModel.Password" class="form-control"></InputText>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Confirm password:</label>
+                        <InputText type="password" @bind-Value="registerValidationModel.ConfirmPassword" class="form-control"></InputText>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-outline-success float-right" type="submit">Sign up</button>
+                        <NavLink class="btn btn-outline-secondary" href="/">Cancel</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private RegisterValidationModel registerValidationModel = new RegisterValidationModel();
+    private string error = string.Empty;
+
+    private async Task RegisterHandler()
+    {
+        var user = await this.UserManager.FindByEmailAsync(registerValidationModel.EmailAddress);
+
+        if (user != null)
+        {
+            error = "This email address is already taken.";
+        }
+
+        var newUser = new ApplicationUser()
+            {
+                FullName = registerValidationModel.FullName,
+                Email = registerValidationModel.EmailAddress,
+                UserName = registerValidationModel.EmailAddress,
+                PIN = registerValidationModel.PIN,
+                PersonalIdNumber = registerValidationModel.PersonalIdNumber,
+                PhoneNumber = registerValidationModel.PhoneNumber
+            };
+
+        var newUserReponse = await this.UserManager.CreateAsync(newUser, registerValidationModel.Password);
+
+        if (newUserReponse.Succeeded)
+        {
+            await this.UserManager.AddToRoleAsync(newUser, UserRoles.User);
+
+            this.NavigationManager.NavigateTo("/register-completed", false);
+        }
+    }
+}

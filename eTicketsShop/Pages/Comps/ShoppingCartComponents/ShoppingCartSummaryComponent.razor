@@ -1,0 +1,101 @@
+﻿@page "/shopping-cart"
+@using System.Security.Claims
+@using eTicketsShop.Data.Cart
+@using eTicketsShop.Data.ViewModels
+
+@inject ShoppingCart ShoppingCart;
+@inject IMoviesService MoviesService;
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject IOrdersService OrdersService;
+@inject NavigationManager NavigationManager;
+
+@attribute [Authorize]
+
+@if (this.shoppingCartViewModel != null)
+{
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="text-center">
+                <h2>Your shopping cart summary</h2>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Selected amount</th>
+                        <th>Movie</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in this.shoppingCartViewModel.ShoppingCart.ShoppingCartItems)
+                    {
+                        <tr>
+                            <td class="align-middle">@item.Amount</td>
+                            <td class="align-middle">@item.Movie.Name</td>
+                            <td class="align-middle">@item.Movie.Price.ToString("c")</td>
+                            <td class="align-middle">@((item.Amount * item.Movie.Price).ToString("c"))</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2"></td>
+                        <td><b>Total:</b></td>
+                        <td>
+                            @this.shoppingCartViewModel.ShoppingCartTotal.ToString("c")
+                        </td>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+
+            <div class="text-right">
+                <div class="btn-group">
+                    <button class="btn btn-outline-primary" @onclick="CompleteOrderHandler">
+                        Complete order
+                    </button>
+
+                    <span style="padding: 5px"></span>
+                    <NavLink class="btn btn-outline-success" href="/">
+                        Add more items
+                    </NavLink>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private ShoppingCartViewModel shoppingCartViewModel = new ShoppingCartViewModel();
+    private int movieId;
+
+    protected override void OnInitialized()
+    {
+        var items = this.ShoppingCart.GetShoppingCartItems();
+        this.ShoppingCart.ShoppingCartItems = items;
+
+        this.shoppingCartViewModel.ShoppingCart = this.ShoppingCart;
+        this.shoppingCartViewModel.ShoppingCartTotal = this.ShoppingCart.GetShoppingCartTotal();
+    }
+
+    private async Task CompleteOrderHandler()
+    {
+        var items = this.ShoppingCart.GetShoppingCartItems();
+
+        if (items.Count > 0)
+        {
+            var authState = await this.AuthenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+            var userId = user.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userEmailAddress = user.FindFirstValue(ClaimTypes.Email);
+
+            await this.OrdersService.StoreOrderAsync(items, userId, userEmailAddress);
+            await this.ShoppingCart.ClearShoppingCartAsync();
+
+            this.NavigationManager.NavigateTo("/order-completed", false);
+        } 
+    }
+}

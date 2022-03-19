@@ -1,0 +1,75 @@
+﻿@page "/login"
+@using eTicketsShop.MIddlewares
+
+@inject UserManager<ApplicationUser> userManager
+@inject SignInManager<ApplicationUser> signInManager
+@inject NavigationManager navigationManager
+
+@attribute [AllowAnonymous]
+
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <p>
+            <h4>Log in to your account</h4>
+        </p>
+
+        @if (!String.IsNullOrEmpty(this.error))
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry!</b> - @this.error</span>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <EditForm Model="loginValidationModel" OnValidSubmit="HandleSubmit">
+
+                    <div class="form-group">
+                        <label asp-for="EmailAddress" class="control-label">Email Address:</label>
+                        <InputText @bind-Value="loginValidationModel.EmailAddress" class="form-control"></InputText>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password" class="control-label">Password:</label>
+                        <InputText type="password" @bind-Value="loginValidationModel.Password" class="form-control"></InputText>
+                    </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-outline-success float-right" type="submit">Log in</button>
+                        <NavLink class="btn btn-outline-secondary" href="/">Cancel</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginValidationModel loginValidationModel = new LoginValidationModel();
+    private string error = string.Empty;
+
+    private async Task HandleSubmit()
+    {
+        var user = await this.userManager.FindByEmailAsync(loginValidationModel.EmailAddress);
+
+        if (await this.signInManager.CanSignInAsync(user))
+        {
+            var result = await this.signInManager.CheckPasswordSignInAsync(user, loginValidationModel.Password, true);
+
+            if (result == Microsoft.AspNetCore.Identity.SignInResult.Success)
+            {
+                Guid key = Guid.NewGuid();
+                BlazorCookieLoginMiddleware.Logins[key] = new LoginInfo { Email = loginValidationModel.EmailAddress, Password = loginValidationModel.Password };
+
+                this.navigationManager.NavigateTo($"/login?key={key}", true);
+            }
+            else
+            {
+                this.error = "Wrong credentials. Please try again!";
+            }
+        }
+        else
+        {
+            this.error = "Wrong credentials. Please try again!";
+        }
+    }
+}

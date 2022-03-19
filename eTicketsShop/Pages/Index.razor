@@ -1,0 +1,17 @@
+﻿@page "/"
+@page "/movies"
+
+@inject IMoviesService moviesService;
+
+<div class="row">
+   <MovieComponent Movies="movies"></MovieComponent>
+</div>
+
+@code {
+    private IEnumerable<Movie> movies = new List<Movie>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.movies = await this.moviesService.GetAllAsync();
+    }
+}

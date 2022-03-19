@@ -1,0 +1,91 @@
+﻿@page "/movies/{MovieId:int}"
+@using eTicketsShop.Data.Cart
+
+@inject IMoviesService moviesService;
+@inject ShoppingCart ShoppingCart;
+@inject NavigationManager NavigationManager;
+
+@attribute [AllowAnonymous]
+
+@if (this.movie != null)
+{
+    <div class="row">
+        <div class="col-md-8 offset-2">
+            <div class="card mb-12">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @this.movie.Name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="@movie.ImageUrl" width="100%" alt="@movie.Name" />
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <p class="card-text">@movie.Description</p>
+                            <p class="card-text"><b>Category: </b>@movie.MovieCategory</p>
+                            <p class="card-text"><b>Start Date: </b>@movie.StartDate.ToString("dd MMM yy")</p>
+                            <p class="card-text"><b>End Date: </b>@movie.EndDate.ToString("dd MMM yy")</p>
+                            <p class="card-text">
+                                <b>Status: </b>@if (DateTime.Now >= movie.StartDate && DateTime.Now <= movie.EndDate)
+                                {
+                                    <span class="badge bg-success text-white">AVAILABLE</span>
+                                }
+                                else if (DateTime.Now > movie.EndDate)
+                                {
+                                    <span class="badge bg-danger text-white">EXPIRED</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-primary text-white">UPCOMING</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <NavLink class="btn btn-outline-primary float-right" href="/">Back to List</NavLink>
+                                <AuthorizeView>
+                                    <button class="btn btn-success text-white" @onclick="AddToCartHandler" asp-route-id="@movie.Id"><i class="bi bi-cart-plus"></i>Add to Cart (Price @this.movie.Price.ToString("c"))</button>
+                                </AuthorizeView>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@code {
+    private Movie movie;
+
+    [Parameter]
+    public int MovieId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        this.movie = await this.moviesService.GetMovieByIdAsync(this.MovieId);
+    }
+
+    private async Task AddToCartHandler()
+    {
+        var movie = await this.moviesService.GetMovieByIdAsync(this.MovieId);
+
+        if (movie != null)
+        {
+            this.ShoppingCart.AddItemToCart(movie);
+            this.StateHasChanged();
+
+            this.NavigationManager.NavigateTo("/shopping-cart", false);
+        }
+    }
+}
+

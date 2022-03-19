@@ -1,0 +1,62 @@
+﻿@foreach (var movie in this.Movies)
+{
+    <div class="col-md-4 col-xs-6 border-primary mb-3">
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <h5 class="card-title">
+                                @movie.Name
+                                <AuthorizeView Roles="Admin">
+                                    <NavLink href="@($"/movies/edit/{movie.Id}")" class="text-white float-right"><i class="bi bi-pencil-square"></i></NavLink>
+                                </AuthorizeView>
+                            </h5>
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <img src="@movie.ImageUrl" width="100%" alt="@movie.Name" />
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <p class="card-text">@movie.Description</p>
+                        <p class="card-text"><b>Category: </b>@movie.MovieCategory</p>
+                        <p class="card-text"><b>Start Date: </b>@movie.StartDate.ToString("dd MMM yy")</p>
+                        <p class="card-text"><b>End Date: </b>@movie.EndDate.ToString("dd MMM yy")</p>
+                        <p class="card-text">
+                            <b>Status: </b>@if (DateTime.Now >= movie.StartDate && DateTime.Now <= movie.EndDate)
+                            {
+                                <span class="badge bg-success text-white">AVAILABLE</span>
+                            }
+                            else if (DateTime.Now > movie.EndDate)
+                            {
+                                <span class="badge bg-danger text-white">EXPIRED</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary text-white">UPCOMING</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer ">
+                        <p class="card-text">
+                            <NavLink class="btn btn-outline-primary" href="@($"/movies/{movie.Id}")"><i class="bi bi-eye-fill"></i>Show Details</NavLink>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@code {
+
+    [Parameter]
+    public IEnumerable<Movie> Movies { get; set; }
+}

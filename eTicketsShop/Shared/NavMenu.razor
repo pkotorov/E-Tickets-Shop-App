@@ -1,0 +1,42 @@
+﻿@using eTicketsShop.Data.Cart;
+@using eTicketsShop.Pages.Comps.ShoppingCartComponents
+
+@inject ShoppingCart ShoppingCart;
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+        <NavLink class="navbar-brand" href="/">eTickets Shop</NavLink>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="navbar-nav">
+                    <NavLink class="nav-link text-dark" href="/"><i class="badge-info bi-film" style="margin-right: 3px;"></i>Movies</NavLink>
+                </li>
+                <AuthorizeView Roles="Admin">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="bi bi-gear" style="padding-right: 3px;"></i>Management</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <NavLink class="dropdown-item" href="/movies/create"><i class="bi bi-camera-reels"></i>Create movie</NavLink>
+                        </div>
+                    </li>
+                </AuthorizeView>
+            </ul>
+
+            <ul class="navbar-nav">
+                <AuthorizeView>
+                    <ShoppingCartMiniComponent></ShoppingCartMiniComponent>
+                </AuthorizeView>
+            </ul>
+
+            <Identity></Identity>
+
+        </div>
+    </div>
+</nav>
+
+@code {
+
+}

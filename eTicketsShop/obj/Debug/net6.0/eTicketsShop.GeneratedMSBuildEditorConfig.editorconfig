@@ -1,0 +1,112 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = eTicketsShop
+build_property.RootNamespace = eTicketsShop
+build_property.ProjectDir = D:\repos\eTicketsShop\eTicketsShop\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\repos\eTicketsShop\eTicketsShop
+build_property._RazorSourceGeneratorDebug = 
+
+[D:/repos/eTicketsShop/eTicketsShop/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/AccountComponents/LoginComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcQWNjb3VudENvbXBvbmVudHNcTG9naW5Db21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/AccountComponents/RegisterCompleteComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcQWNjb3VudENvbXBvbmVudHNcUmVnaXN0ZXJDb21wbGV0ZUNvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/AccountComponents/RegisterComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcQWNjb3VudENvbXBvbmVudHNcUmVnaXN0ZXJDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/AccountComponents/UsersComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcQWNjb3VudENvbXBvbmVudHNcVXNlcnNDb21wb25lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/Identity.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcSWRlbnRpdHkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/MovieComponents/MovieComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcTW92aWVDb21wb25lbnRzXE1vdmllQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/MovieComponents/MovieCreateComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcTW92aWVDb21wb25lbnRzXE1vdmllQ3JlYXRlQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/MovieComponents/MovieDetailsComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcTW92aWVDb21wb25lbnRzXE1vdmllRGV0YWlsc0NvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/MovieComponents/MovieEditComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcTW92aWVDb21wb25lbnRzXE1vdmllRWRpdENvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/OrderComponents/OrderCompletedComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcT3JkZXJDb21wb25lbnRzXE9yZGVyQ29tcGxldGVkQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/OrderComponents/OrdersComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcT3JkZXJDb21wb25lbnRzXE9yZGVyc0NvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/ShoppingCartComponents/ShoppingCartMiniComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcU2hvcHBpbmdDYXJ0Q29tcG9uZW50c1xTaG9wcGluZ0NhcnRNaW5pQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Comps/ShoppingCartComponents/ShoppingCartSummaryComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tcHNcU2hvcHBpbmdDYXJ0Q29tcG9uZW50c1xTaG9wcGluZ0NhcnRTdW1tYXJ5Q29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Shared/LoginDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXExvZ2luRGlzcGxheS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-byoo2mdfoh
+
+[D:/repos/eTicketsShop/eTicketsShop/Areas/Identity/Pages/Account/LogOut.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dPdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Areas/Identity/Pages/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/repos/eTicketsShop/eTicketsShop/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
